@@ -31,6 +31,7 @@ if [ "$(whoami)" != "root" ]; then
     alias slackpkg="su -c 'slackpkg update && slackpkg install-new && slackpkg upgrade-all'"
     alias halt="su -c halt"
     alias reboot="su -c reboot"
+    alias su="su -l"
 fi
 
 # Add /usr/sbin to $PATH
