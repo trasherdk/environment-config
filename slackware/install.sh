@@ -74,7 +74,7 @@ if [ -e "/etc/slackware-version" ]; then
 
         read -p "Do you want to install slackware packages? (y/n) " INSTALLPKGS
         if [[ "${INSTALLPKGS}" == "y" ]]; then
-            bassh ${CURRENTLOCATION}/packages/install.sh ${ROOTLOCATION}
+            bash ${CURRENTLOCATION}/packages/install.sh ${ROOTLOCATION}
         fi
     fi
 
