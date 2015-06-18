@@ -66,11 +66,7 @@ fi
 
 bash "${LOCATION}/slackware/install.sh" "${LOCATION}"
 
-if ! [ -e "${HOME}/.bin/psysh" ]; then
-    echo "Installing physh"
-    mkdir -p ~/.bin
-    cd ~/.bin
-    wget http://psysh.org/psysh
-    chmod +x psysh
-    echo ""
-fi
+echo "Installing physh"
+wget http://psysh.org/psysh -O ~/.bin/psysh
+chmod +x psysh
+echo ""
