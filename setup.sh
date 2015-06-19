@@ -68,5 +68,10 @@ bash "${LOCATION}/slackware/install.sh" "${LOCATION}"
 
 echo "Installing physh"
 wget http://psysh.org/psysh -O ~/.bin/psysh
-chmod +x psysh
+chmod +x ~/.bin/psysh
+echo ""
+
+echo "Installing phpunit"
+wget https://phar.phpunit.de/phpunit.phar -O ~/.bin/phpunit
+chmod +x ~/.bin/phpunit
 echo ""
