@@ -33,6 +33,15 @@ else
     echo "Skipping Areao Icon Theme"
 fi
 
+if [ -z "$(ls /var/log/packages/ | grep ambience)" ]; then
+    echo "Building Ambience/Ridance Icon theme"
+    cd ${CURRENTLOCATION}/Slackbuilds/ambiance-ridance-flat-colors-theme/
+    sh ambiance-ridance-flat-colors-theme.SlackBuild
+    upgradepkg --install-new /tmp/*.t?z
+else
+    echo "Skipping Amnbience/Ridance Icon Theme"
+fi
+
 if [ -n "$(ls /var/log/packages/ | grep 'slackpkg+')" ]; then
     copyIt ${ROOTLOCATION}/slackware/config/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf
 
@@ -45,32 +54,39 @@ else
 fi
 
 if [ -n "$(ls /var/log/packages/ | grep sbopkg)" ]; then
+    echo "Getting sbopkg Version"
+    SBOVER=$(sbopkg -v)
+
     echo "Running Sbopkg"
     sbopkg -r
 
-    echo "Copying Queue files"
-    mkdir -p /var/lib/sbopkg/queues/
-    cp -r ${CURRENTLOCATION}/Queue/*sqf /var/lib/sbopkg/queues/
+    echo "Creating Queue files and dependencies"
+    if [ -e "/usr/doc/sbopkg-$SBOVER/contrib/sqg" ]; then
 
-    sbopkg -k -B -e continue -i Core.sqf
-    sbopkg -k -B -e continue -i Desktop.sqf
-    sbopkg -k -B -e continue -i Development.sqf
-    sbopkg -k -B -e continue -i Internet.sqf
-    sbopkg -k -B -e continue -i Media.sqf
-    sbopkg -k -B -e continue -i Office.sqf
-    sbopkg -k -B -e continue -i Security.sqf
-    sbopkg -k -B -e continue -i Games.sqf
+        if ! [ -e "/var/lib/sbopkg/queues/mysql-workbench.sqf" ]; then
+            /usr/doc/sbopkg-$SBOVER/contrib/sqg -a
+        else
+            echo "Queue files already generated"
+        fi
 
-    if [[ "$(uname -m)" != "x86_64" ]] || [ -n "$(ls /var/log/packages/ | grep compat32)" ]; then
-        sbopkg -k -B -e continue -i 32Bit.sqf
+        for pkg in $(grep -v '^$\|^\s*\#' packages.list); do
+            sbopkg -B -k -e continue -i ${pkg}.sqf
+        done
+
+        if [[ "$(uname -m)" != "x86_64" ]] || [ -n "$(ls /var/log/packages/ | grep compat32)" ]; then
+            sbopkg -B -k -e continue -i skype.sqf
+            sbopkg -B -k -e continue -i skype-call-recorder.sqf
+            sbopkg -B -k -e continue -i mplayer-codecs32.sqf
+        fi
+
+        if [[ "$(uname -m)" == "x86_64" ]]; then
+            sbopkg -B -k -e continue -i mplayer-codecs64.sqf
+        fi
+
+    else
+        echo "Could not generate queue files"
     fi
 
-    if [[ "$(uname -m)" == "x86_64" ]]; then
-        sbopkg -e continue -k -i 64Bit.sqf
-    fi
-
-    echo "Cleaning /var/lib/sbopkg/queues/"
-    rm -rf /var/lib/sbopkg/queues/*.sqf
 else
-    echo "Please Install sbopkg"
+    echo "Please Install sbopkg and JDK"
 fi
