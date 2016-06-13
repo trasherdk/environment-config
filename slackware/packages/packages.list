@@ -127,6 +127,9 @@ mysql-workbench
 the_silver_searcher
 tinyxml
 vagrant
+python-magic
+python-magick
+s3cmd
 
 # Games
 fceux
