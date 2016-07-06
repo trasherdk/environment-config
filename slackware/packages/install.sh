@@ -33,7 +33,7 @@ else
     echo "Skipping Areao Icon Theme"
 fi
 
-if [ -z "$(ls /var/log/packages/ | grep ambience)" ]; then
+if [ -z "$(ls /var/log/packages/ | grep ridance)" ]; then
     echo "Building Ambience/Ridance Icon theme"
     cd ${CURRENTLOCATION}/Slackbuilds/ambiance-ridance-flat-colors-theme/
     sh ambiance-ridance-flat-colors-theme.SlackBuild
@@ -44,9 +44,13 @@ fi
 
 if [ -n "$(ls /var/log/packages/ | grep 'slackpkg+')" ]; then
     echo "Using slackpkg/slackpkg+ to install alienbob stuff"
-    slackpkg update
-    slackpkg update gpg
-    slackpkg install multilib chromium vlc ffmpeg wine libreoffice libreoffice-l10n-de libreoffice-l10n-es
+    #slackpkg update
+    #slackpkg update gpg
+
+    alienpkgs="multilib chromium vlc ffmpeg wine libreoffice libreoffice-l10n-de libreoffice-l10n-es"
+    for p in ${alienpkgs}; do
+        slackpkg install ${p}
+    done
 else
     echo "Please Install slackpkg+"
 fi
@@ -59,26 +63,28 @@ if [ -n "$(ls /var/log/packages/ | grep sbopkg)" ]; then
     sbopkg -r
 
     echo "Creating Queue files and dependencies"
-    if [ -e "/usr/doc/sbopkg-$SBOVER/contrib/sqg" ]; then
+    if [ -e "/usr/doc/sbopkg-$SBOVER/contrib/sqg" ] || [ -e "/usr/sbin/sqg" ]; then
 
         if ! [ -e "/var/lib/sbopkg/queues/mysql-workbench.sqf" ]; then
-            /usr/doc/sbopkg-$SBOVER/contrib/sqg -a
+            /usr/doc/sbopkg-$SBOVER/contrib/sqg -a || /usr/sbin/sqg -a
         else
             echo "Queue files already generated"
         fi
 
-        for pkg in $(grep -v '^$\|^\s*\#' packages.list); do
-            sbopkg -B -k -e continue -i ${pkg}.sqf
+        for pkg in $(grep -v '^$\|^\s*\#' ${ROOTLOCATION}/slackware/packages/packages.list); do
+            if [ -e "/var/lib/sbopkg/queues/${pkg}.sqf" ]; then
+                sbopkg -B -k -e continue -i ${pkg}.sqf
+            fi
         done
 
         if [[ "$(uname -m)" != "x86_64" ]] || [ -n "$(ls /var/log/packages/ | grep compat32)" ]; then
-            sbopkg -B -k -e continue -i skype.sqf
-            sbopkg -B -k -e continue -i skype-call-recorder.sqf
-            sbopkg -B -k -e continue -i mplayer-codecs32.sqf
+            sbopkg -B -k -e continue -i skype
+            sbopkg -B -k -e continue -i skype-call-recorder
+            sbopkg -B -k -e continue -i mplayer-codecs32
         fi
 
         if [[ "$(uname -m)" == "x86_64" ]]; then
-            sbopkg -B -k -e continue -i mplayer-codecs64.sqf
+            sbopkg -B -k -e continue -i mplayer-codecs64
         fi
 
     else
