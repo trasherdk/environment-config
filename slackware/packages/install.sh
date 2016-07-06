@@ -43,8 +43,6 @@ else
 fi
 
 if [ -n "$(ls /var/log/packages/ | grep 'slackpkg+')" ]; then
-    copyIt ${ROOTLOCATION}/slackware/config/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf
-
     echo "Using slackpkg/slackpkg+ to install alienbob stuff"
     slackpkg update
     slackpkg update gpg
