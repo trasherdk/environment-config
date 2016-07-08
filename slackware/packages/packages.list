@@ -3,8 +3,8 @@ imlib2
 unrar
 p7zip
 hwinfo
-lame
 twolame
+lame
 xvidcore
 gstreamer1
 gst1-plugins-base
@@ -24,17 +24,17 @@ mp3check
 ripperX
 
 # Desktop Stuff
-gtk-engines
 clearlooks-phenix-theme
 gtk-nodoka-engine
 gtk-chtheme
 gtk-engines-unico
+gtk-engines
 gtk-aurora-engine
-murrine
 murrine-themes
+murrine
 gmrun
-openbox
 openbox-themes
+openbox
 obconf
 obmenu
 tint2
@@ -43,19 +43,19 @@ xarchiver
 thunar-archive-plugin
 thunar-vcs-plugin
 thunar-media-tags-plugin
-recordmydesktop
 gtk-recordmydesktop
+recordmydesktop
 awoken-icon-theme
 faenza-icon-theme
 faience-icon-theme
 kfaenza-icon-theme
-numix-icon-theme
 numix-icon-theme-bevel
 numix-icon-theme-circle
+numix-icon-theme
 isomaster
 volti
-i3
 i3status
+i3
 conky
 smb4k
 compton
@@ -78,8 +78,6 @@ wkhtmltopdf
 kvirc
 hexchat
 filezilla
-sopcast
-sopcast-player
 
 # Office
 goffice
@@ -118,7 +116,6 @@ SDL_gfx
 SDL_sound
 gparted
 docker
-virtualbox
 freerdp
 fslint
 git-cola
@@ -126,9 +123,8 @@ google-webdesigner
 mysql-workbench
 the_silver_searcher
 tinyxml
-vagrant
-python-magic
 python-magick
+python-magic
 s3cmd
 
 # Games
@@ -140,6 +136,12 @@ playonlinux
 urbanterror
 lincity-ng
 
+# Stuff that needs confirmation
+sopcast-player
+sopcast
+
 # Stuff that takes long time to build
+vagrant
+virtualbox
 wireshark
 digikam

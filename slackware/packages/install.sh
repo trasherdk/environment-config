@@ -6,6 +6,7 @@
 ROOTLOCATION=${1}
 CURRENTLOCATION="${ROOTLOCATION}/slackware/packages"
 VERSION=$(cat /etc/slackware-version | egrep -o '[0-9\.]+')
+NOTINSTALLED=()
 
 # Source functions
 source "${ROOTLOCATION}/functions.sh"
@@ -42,17 +43,17 @@ else
     echo "Skipping Amnbience/Ridance Icon Theme"
 fi
 
-if [ -n "$(ls /var/log/packages/ | grep 'slackpkg+')" ]; then
+if [ -n "$(ls /var/log/packages/ | grep 'slackpkg+')" ] && [ -z "$(ls /var/log/packages/ | grep chromium)" ]; then
     echo "Using slackpkg/slackpkg+ to install alienbob stuff"
-    #slackpkg update
-    #slackpkg update gpg
+    slackpkg update
+    slackpkg update gpg
 
-    alienpkgs="multilib chromium vlc ffmpeg wine libreoffice libreoffice-l10n-de libreoffice-l10n-es"
+    alienpkgs="multilib chromium vlc ffmpeg wine libreoffice"
     for p in ${alienpkgs}; do
         slackpkg install ${p}
     done
 else
-    echo "Please Install slackpkg+"
+    echo "Skipping slackpkg+ stuff"
 fi
 
 if [ -n "$(ls /var/log/packages/ | grep sbopkg)" ]; then
@@ -71,22 +72,36 @@ if [ -n "$(ls /var/log/packages/ | grep sbopkg)" ]; then
             echo "Queue files already generated"
         fi
 
-        for pkg in $(grep -v '^$\|^\s*\#' ${ROOTLOCATION}/slackware/packages/packages.list); do
-            if [ -e "/var/lib/sbopkg/queues/${pkg}.sqf" ]; then
-                sbopkg -B -k -e continue -i ${pkg}.sqf
-            fi
-        done
+        list=$(grep -v '^$\|^\s*\#' ${ROOTLOCATION}/slackware/packages/packages.list)
 
         if [[ "$(uname -m)" != "x86_64" ]] || [ -n "$(ls /var/log/packages/ | grep compat32)" ]; then
-            sbopkg -B -k -e continue -i skype
-            sbopkg -B -k -e continue -i skype-call-recorder
-            sbopkg -B -k -e continue -i mplayer-codecs32
+            list=$(echo -e "${list} \n $(grep -v '^$\|^\s*\#' ${ROOTLOCATION}/slackware/packages/packages32.list)")
         fi
 
         if [[ "$(uname -m)" == "x86_64" ]]; then
-            sbopkg -B -k -e continue -i mplayer-codecs64
+            list=$(echo -e "${list} \n $(grep -v '^$\|^\s*\#' ${ROOTLOCATION}/slackware/packages/packages64.list)")
         fi
 
+        for pkg in ${list}; do
+            if [ -z $(ls /var/log/packages/ | egrep -i "^${pkg}-") ]; then
+                echo "Installing ${pkg}"
+                if [ -e "/var/lib/sbopkg/queues/${pkg}.sqf" ]; then
+                    sbopkg -B -k -e continue -i ${pkg}.sqf
+                else
+                    NOTINSTALLED+=("${pkg}")
+                fi
+            else
+                echo "${pkg} already installed"
+            fi
+        done
+
+        suffix=""
+        for i in ${NOTINSTALLED[@]}; do
+            echo "Going to install: ${i}"
+            suffix="${suffix} -i ${i}"
+        done
+
+        sbopkg -k -e continue ${suffix}
     else
         echo "Could not generate queue files"
     fi
