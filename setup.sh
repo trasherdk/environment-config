@@ -64,14 +64,18 @@ if [ -w "/etc/" ]; then
     fi
 fi
 
+if ! [ -e "${HOME}/.bin/psysh" ]; then
+    echo "Installing physh"
+    wget http://psysh.org/psysh -O ~/.bin/psysh
+    chmod +x ~/.bin/psysh
+    echo ""
+fi
+
+if ! [ -e "${HOME}/.bin/phpunit" ]; then
+    echo "Installing phpunit"
+    wget https://phar.phpunit.de/phpunit.phar -O ~/.bin/phpunit
+    chmod +x ~/.bin/phpunit
+    echo ""
+fi
+
 bash "${LOCATION}/slackware/install.sh" "${LOCATION}"
-
-echo "Installing physh"
-wget http://psysh.org/psysh -O ~/.bin/psysh
-chmod +x ~/.bin/psysh
-echo ""
-
-echo "Installing phpunit"
-wget https://phar.phpunit.de/phpunit.phar -O ~/.bin/phpunit
-chmod +x ~/.bin/phpunit
-echo ""
