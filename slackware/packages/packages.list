@@ -22,8 +22,10 @@ faad2
 eyeD3
 mp3check
 ripperX
+GPS
 
 # Desktop Stuff
+clearlooks-classic-themes
 clearlooks-phenix-theme
 gtk-nodoka-engine
 gtk-chtheme
@@ -35,27 +37,54 @@ murrine
 gmrun
 openbox-themes
 openbox
+obapps
+obbrowser
 obconf
+obmenu-generator
 obmenu
+obkey
+obsession
+obshutdown
+openbox-menu
+openbox-simple-theme
+openbox-themes
 tint2
 pypanel
 xarchiver
 thunar-archive-plugin
 thunar-vcs-plugin
 thunar-media-tags-plugin
+thunar-dropbox
+thunar-thumbnailers
 gtk-recordmydesktop
 recordmydesktop
 isomaster
 volti
 i3status
+i3pystatus
+i3minator
+i3situation
 i3
 conky
+conky-manager
 smb4k
 compton
 apulse
 cowsay
 ssr
 xfburn
+fbpanel
+enlightenment
+emotion
+elementary
+terminology
+awesome
+awesome-extra
+luna-wallpapers
+ratpoison
+xmobar
+xmonad
+galculator
 
 # Security
 aircrack-ng
@@ -90,15 +119,17 @@ pychecker
 pyflakes
 netbeans
 eclipse
+eclipse-cpp
 squirrel-sql
 pip
 virtualenv
 php-imagick
+phpmd
+phpDocumentor
 cabextract
 icoutils
 fontforge
 mtpfs
-phpmd
 libsigc++
 wxPython
 libdvdcss
@@ -119,6 +150,16 @@ tinyxml
 python-magick
 python-magic
 s3cmd
+zenity
+android-studio
+andoid-tools
+anjuta
+flow
+glade
+hhvm
+nodejs
+poedit
+pylint
 
 # Games
 fceux
@@ -126,7 +167,7 @@ mupen64plus
 snes9x
 openttd
 playonlinux
-urbanterror
+UrbanTerror
 lincity-ng
 
 # Stuff that needs confirmation
