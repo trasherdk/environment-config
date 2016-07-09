@@ -1,6 +1,6 @@
 #!/bin/bash
 ##################################################################
-#  This scripts bootstraps all the installation stuff
+#  This scripts bootstraps all the installation routine
 #  Michael Pratt <pratt@hablarmierda.net>
 ##################################################################
 set -e
@@ -26,15 +26,19 @@ if [ -w "/etc/" ]; then
     echo ""
 
     if [ -e "/etc/httpd/httpd.conf" ]; then
-        echo "Modifying httpd.conf to allow userdir_module"
-        sed -i 's:#Include /etc/httpd/extra/httpd-userdir.conf:Include /etc/httpd/extra/httpd-userdir.conf:' /etc/httpd/httpd.conf
-        sed -i 's:#Include /etc/httpd/mod_php.conf:Include /etc/httpd/mod_php.conf:' /etc/httpd/httpd.conf
 
-        echo "Enabling mod_rewrite and userdir_module"
+        if [ -f "/etc/httpd/extra/httpd-userdir.conf" ]; then
+            echo "Modifying httpd.conf to allow userdir_module"
+            sed -i 's:#Include /etc/httpd/extra/httpd-userdir.conf:Include /etc/httpd/extra/httpd-userdir.conf:' /etc/httpd/httpd.conf
+            sed -i 's:#Include /etc/httpd/mod_php.conf:Include /etc/httpd/mod_php.conf:' /etc/httpd/httpd.conf
+        fi
+
         if [ -f "/usr/lib64/httpd/modules/mod_userdir.so" ]; then
+            echo "Enabling mod_rewrite and userdir_module (64Bit)"
             sed -i 's:#LoadModule userdir_module lib64/httpd/modules/mod_userdir.so:LoadModule userdir_module lib64/httpd/modules/mod_userdir.so:' /etc/httpd/httpd.conf
             sed -i 's:#LoadModule rewrite_module lib64/httpd/modules/mod_rewrite.so:LoadModule rewrite_module lib64/httpd/modules/mod_rewrite.so:' /etc/httpd/httpd.conf
         elif [ -f "/usr/lib/httpd/modules/mod_userdir.so" ]; then
+            echo "Enabling mod_rewrite and userdir_module (32Bit)"
             sed -i 's:#LoadModule userdir_module lib/httpd/modules/mod_userdir.so:LoadModule userdir_module lib/httpd/modules/mod_userdir.so:' /etc/httpd/httpd.conf
             sed -i 's:#LoadModule rewrite_module lib/httpd/modules/mod_rewrite.so:LoadModule rewrite_module lib/httpd/modules/mod_rewrite.so:' /etc/httpd/httpd.conf
         fi
@@ -50,16 +54,6 @@ if [ -w "/etc/" ]; then
             echo -e "ServerTokens Prod" >> /etc/httpd/httpd.conf
         fi
 
-        echo ""
-    fi
-
-    if [ -z "$(grep '9c20bd82-1f3d-416e-b524-380172cd6959' /etc/fstab)" ]; then
-        echo "Writing mount datapoints for my M3 External Drive into fstab"
-        mkdir -p /mnt/{share,storage,backup}
-        echo "# SAMSUNG M3 External Drive" >> /etc/fstab
-        echo "/dev/disk/by-uuid/108639C48639AB5C                      /mnt/share   ntfs   defaults,user,rw,umask=000,exec,comment=x-gvfs-show  0   0" >> /etc/fstab
-        echo "/dev/disk/by-uuid/9c20bd82-1f3d-416e-b524-380172cd6959  /mnt/storage ext4   defaults,user,exec,comment=x-gvfs-show            0   0" >> /etc/fstab
-        echo "/dev/disk/by-uuid/4baf3ce6-d77e-4da9-903c-fec952096f70  /mnt/backup  ext4   defaults,user,exec,comment=x-gvfs-show            0   0" >> /etc/fstab
         echo ""
     fi
 fi
