@@ -45,13 +45,6 @@ thunar-vcs-plugin
 thunar-media-tags-plugin
 gtk-recordmydesktop
 recordmydesktop
-awoken-icon-theme
-faenza-icon-theme
-faience-icon-theme
-kfaenza-icon-theme
-numix-icon-theme-bevel
-numix-icon-theme-circle
-numix-icon-theme
 isomaster
 volti
 i3status
@@ -145,3 +138,10 @@ vagrant
 virtualbox
 wireshark
 digikam
+awoken-icon-theme
+faenza-icon-theme
+faience-icon-theme
+kfaenza-icon-theme
+numix-icon-theme-bevel
+numix-icon-theme-circle
+numix-icon-theme
