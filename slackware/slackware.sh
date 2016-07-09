@@ -34,5 +34,8 @@ if [ "$(whoami)" != "root" ]; then
     alias su="su -l"
 fi
 
+# Add local slackware bin directory to the path
+[ -e "${HOME}/.slackware/bin" ] && PATH=${PATH}:${HOME}/.slackware/bin
+
 # Add /usr/sbin to $PATH
 PATH=${PATH}:/usr/sbin/
