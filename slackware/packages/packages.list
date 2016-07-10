@@ -161,6 +161,12 @@ nodejs
 poedit
 pylint
 
+# Fonts
+adobe-source-code-pro-font
+adobe-source-han-sans-fonts
+adobe-source-sans-pro-font
+adobe-source-serif-pro-font
+
 # Games
 fceux
 mupen64plus
