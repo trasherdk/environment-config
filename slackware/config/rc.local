@@ -30,7 +30,7 @@ if [ -x /etc/rc.d/rc.vboxdrv ]; then
     /etc/rc.d/rc.vboxdrv start
 fi
 
-if [ -x /usr/bin/nvidia-modprobe ]; then
+if [ -x /usr/bin/nvidia-modprobe ] && [ -n "$(lspci -v | grep -i vga | grep -i nvidia)" ]; then
     echo -e "Loading CUDA"
     /usr/bin/nvidia-modprobe -c 0 -u
 fi
@@ -38,3 +38,8 @@ fi
 if [ -x /etc/rc.d/rc.teamviewerd ]; then
     /etc/rc.d/rc.teamviewerd start
 fi
+
+if [ -x /etc/rc.d/rc.docker ]; then
+    /etc/rc.d/rc.docker start
+fi
+
