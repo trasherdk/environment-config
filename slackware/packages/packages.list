@@ -160,6 +160,7 @@ hhvm
 nodejs
 poedit
 pylint
+universal-ctags
 
 # Fonts
 adobe-source-code-pro-font
