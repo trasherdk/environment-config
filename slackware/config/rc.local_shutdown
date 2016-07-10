@@ -2,16 +2,18 @@
 #
 # /etc/rc.d/rc.local_shutdown:  Local commands run on shutdown
 # Michael Pratt
-#
-#
+
 if [ -x /etc/rc.d/rc.vboxdrv ]; then
-    echo -e "Shutting down virtualbox kernel module"
     /etc/rc.d/rc.vboxdrv stop
 fi
 
+if [ -x /etc/rc.d/rc.docker ]; then
+    /etc/rc.d/rc.docker stop
+fi
+
 # Empty out the temp Directories
-rm -rf /tmp/*
-rm -rf /var/log/removed_packages/*
-rm -rf /var/log/removed_scripts/*
-rm -rf /var/log/sbopkg/*
-rm -rf /var/cache/sbopkg/*
+directories=( '/tmp' '/var/log/removed_packages' '/var/log/removed_scripts' '/var/log/sbopkg' '/var/cache/sbopkg' )
+for d in ${directories[@]}; do
+    echo "Deleting old files in ${d}"
+    find "${d}/" -type f -mtime +10 -exec rm {} \;
+done
