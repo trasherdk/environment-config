@@ -53,22 +53,9 @@ if [ -e "/etc/slackware-version" ]; then
             echo ""
         fi
 
-        exists=0
-        getent passwd $1 >/dev/null 2>&1 && exists=1
-        if [ "${exists}" -eq 1 ] && [ -z "$(grep 'pratt' /etc/sudoers)" ]; then
-            echo "Edditing Sudoers file"
-            if [ -f "/etc/sudoers.tmp" ]; then
-                echo "/etc/sudoers.tmp exists, cannot edit sudoers"
-                exit 1
-            fi
-
-            touch /etc/sudoers.tmp
-            echo "pratt ALL=NOPASSWD:/sbin/iwconfig,/sbin/iwlist,/sbin/ifconfig,/sbin/shutdown,/sbin/dhclient,/sbin/dhcpcd" >> /tmp/sudoers.new
-            visudo -c -f /tmp/sudoers.new
-            if [ "$?" -eq "0" ]; then
-                cp /tmp/sudoers.new /etc/sudoers
-            fi
-            rm /etc/sudoers.tmp
+        if ! grep ^docker: /etc/group 2>&1 > /dev/null; then
+            echo "Creating docker group!"
+            groupadd -r -g 281 docker
             echo ""
         fi
 
