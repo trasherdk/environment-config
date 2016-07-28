@@ -5,8 +5,8 @@ diff -ruN original/rc.4 new/rc.4
  # At least 47% rewritten by:  Patrick J. Volkerding <volkerdi@slackware.com>
  #
  
-+# Bootsplash
-+if [ -f "/boot/video/shutdown.mp4" ]; then
++VDP=$(find /boot/video/ -type f -iname "*.mp4" | shuf -n1)
++if [ -f "${VDP}" ]; then
 +    echo "Close the Bootsplash"    
 +    /bin/killall mplayer
 +else
@@ -23,10 +23,10 @@ diff -ruN original/rc.6 new/rc.6
  # Set the path.
  PATH=/sbin:/etc:/bin:/usr/bin
  
-+# Bootsplash
-+if [ -f "/boot/video/shutdown.mp4" ]; then
++VDP=$(find /boot/video/ -type f -iname "*.mp4" | shuf -n1)
++if [ -f "${VDP}" ]; then
 +    echo "Shutdown Bootsplash"
-+    mplayer -nosound -quiet -ss 1 -vo fbdev2 -vf scale=1366:768 /boot/video/shutdown.mp4 < /dev/null > /dev/null &
++    mplayer -nosound -quiet -ss 1 -vo fbdev2 -vf scale=1366:768 ${VDP} < /dev/null > /dev/null &
 +else
 +    echo "No Shutdown Bootsplash found."
 +fi
@@ -39,8 +39,8 @@ diff -ruN original/rc.6 new/rc.6
  # This never hurts:
  /bin/sync
  
-+# Bootsplash
-+if [ -f "/boot/video/shutdown.mp4" ]; then
++VDP=$(find /boot/video/ -type f -iname "*.mp4" | shuf -n1)
++if [ -f "${VDP}" ]; then
 +    echo "Stop the Bootsplash!"
 +    /bin/killall mplayer
 +fi
@@ -55,9 +55,9 @@ diff -ruN original/rc.S new/rc.S
  
  PATH=/sbin:/usr/sbin:/bin:/usr/bin
  
-+# Bootsplash
-+if [ -f "/boot/video/startup.mp4" ]; then
-+    mplayer -quiet -ss 1 -vo fbdev2 -vf scale=1366:768 -nosound /boot/video/startup.mp4 < /dev/null > /dev/null &
++VDP=$(find /boot/video/ -type f -iname "*.mp4" | shuf -n1)
++if [ -f "${VDP}" ]; then
++    mplayer -quiet -ss 1 -vo fbdev2 -vf scale=1366:768 -nosound ${VDP} < /dev/null > /dev/null &
 +else
 +    echo "No Startup Bootsplash"
 +fi
