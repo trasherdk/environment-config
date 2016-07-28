@@ -38,3 +38,7 @@ fi
 if [ -x /etc/rc.d/rc.teamviewerd ]; then
     /etc/rc.d/rc.teamviewerd start
 fi
+
+if [ -x /etc/rc.d/rc.docker ]; then
+    /etc/rc.d/rc.docker start
+fi

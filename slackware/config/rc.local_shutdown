@@ -5,13 +5,17 @@
 #
 #
 if [ -x /etc/rc.d/rc.vboxdrv ]; then
-    echo -e "Shutting down virtualbox kernel module"
     /etc/rc.d/rc.vboxdrv stop
 fi
 
+if [ -x /etc/rc.d/rc.docker ]; then
+    /etc/rc.d/rc.docker stop
+fi
+
 # Empty out the temp Directories
-rm -rf /tmp/*
-rm -rf /var/log/removed_packages/*
-rm -rf /var/log/removed_scripts/*
-rm -rf /var/log/sbopkg/*
-rm -rf /var/cache/sbopkg/*
+
+TMPDIRS=( '/tmp/' '/var/log/removed_packages/' '/var/log/removed_scripts/' '/var/log/sbopkg/' '/var/cache/sbopkg/' )
+for i in ${TMPDIRS[@]}; do
+    find ${i} -type f -mtime +15 -delete
+    find ${i} -type d -empty -delete
+done
