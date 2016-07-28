@@ -152,7 +152,7 @@ python-magic
 s3cmd
 zenity
 android-studio
-andoid-tools
+android-tools
 anjuta
 flow
 glade
@@ -160,6 +160,7 @@ hhvm
 nodejs
 poedit
 pylint
+universal-ctags
 
 # Fonts
 adobe-source-code-pro-font
