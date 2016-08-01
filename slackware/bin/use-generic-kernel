@@ -1,0 +1,35 @@
+#!/bin/bash
+# Switches to Slackware's generic kernel.
+# This kernel boots faster and needs less RAM.
+# http://docs.slackware.com/slackware:beginners_guide
+
+if ! [ -e "/usr/share/mkinitrd/mkinitrd_command_generator.sh" ]; then
+    echo "You need to be root in order to use this script"
+    exit
+fi
+
+CMD=$(/usr/share/mkinitrd/mkinitrd_command_generator.sh | tail -n 1)
+echo "Going to run: $CMD"
+$CMD
+
+cd /boot || exit 1
+LNKS="System.map config vmlinuz"
+for LNK in $LNKS; do
+    TARGET="$(readlink $LNK | sed 's/huge/generic/')-custom"
+    ln -sf $TARGET $LNK
+done
+
+echo ""
+echo "!!! Important - You need to add this to lilo.conf !!!"
+echo ""
+echo "# Linux bootable partition config begins"
+echo "image = /boot/vmlinuz-generic-custom"
+echo "initrd = /boot/initrd.gz"
+echo ""
+echo "Run lilo after making the modification"
+echo ""
+echo "On Grub use:"
+echo ""
+echo "kernel /vmlinuz-generic-custom ro root=/dev/***"
+echo "initrd /initrd.gz"
+echo ""
