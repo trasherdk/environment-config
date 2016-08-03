@@ -15,7 +15,7 @@ $CMD
 cd /boot || exit 1
 LNKS="System.map config vmlinuz"
 for LNK in $LNKS; do
-    TARGET="$(readlink $LNK | sed 's/huge/generic/')-custom"
+    TARGET="$(readlink $LNK | sed 's/huge/generic/')"
     ln -sf $TARGET $LNK
 done
 
