@@ -1,0 +1,11 @@
+diff -Naur a/libcontainerd/remote_linux.go b/libcontainerd/remote_linux.go
+--- a/libcontainerd/remote_linux.go	2016-08-06 12:59:36.782007000 -0500
++++ b/libcontainerd/remote_linux.go	2016-08-06 13:44:29.665276607 -0500
+@@ -368,6 +368,7 @@
+ 	// Start a new instance
+ 	args := []string{
+ 		"-l", fmt.Sprintf("unix://%s", r.rpcAddr),
++		"shim", "docker-containerd-shim",
+ 		"--shim", "docker-containerd-shim",
+ 		"--metrics-interval=0",
+ 		"--start-timeout", "2m",
