@@ -1,20 +1,12 @@
 #!/bin/sh
+# /etc/rc.d/rc.docker
 
-# Short-Description:  Create lightweight, portable, self-sufficient containers.
-# Description:
-#  Docker is an open-source project to easily create lightweight, portable,
-#  self-sufficient containers from any application. The same container that a
-#  developer builds and tests on a laptop can run at scale, in production, on
-#  VMs, bare metal, OpenStack clusters, public clouds and more.
-
-
-PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 BASE=docker
-UNSHARE=/usr/bin/unshare
 DOCKER=/usr/bin/${BASE}
 DOCKER_PIDFILE=/var/run/${BASE}-daemon.pid
-DOCKER_SOCKET="/var/run/docker/libcontainerd/docker-containerd.sock"
+DOCKER_SOCKET="/var/run/docker.sock"
 DOCKER_LOG=/var/log/docker.log
+DOCKER_STORAGE_DRIVER=${DOCKER_STORAGE_DRIVER:-overlay}
 DOCKER_OPTS=""
 
 if [ -f /etc/default/${BASE} ]; then
@@ -38,17 +30,15 @@ docker_start() {
         fi
     fi
 
-    /usr/bin/containerd -l ${DOCKER_SOCKET} &
-    ${DOCKER} daemon --pidfile="${DOCKER_PIDFILE}" ${DOCKER_OPTS} >> ${DOCKER_LOG} 2>&1 &
+    ${DOCKER} daemon -D --pidfile="${DOCKER_PIDFILE}" --storage-driver=${DOCKER_STORAGE_DRIVER} ${DOCKER_OPTS} >> ${DOCKER_LOG} 2>&1 &
 }
 
 # Stop docker:
 docker_stop() {
     echo "stopping ${BASE} ..."
-    killall contanierd
-    # If there is no PID file, ignore this request...
     if [ -r ${DOCKER_PIDFILE} ]; then
         kill $(cat ${DOCKER_PIDFILE})
+        [ -f "${DOCKER_PIDFILE}" ] && rm -rf ${DOCKER_PIDFILE}
     fi
 }
 
