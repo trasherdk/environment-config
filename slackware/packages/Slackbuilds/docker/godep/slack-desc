@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+     |-----handy-ruler------------------------------------------------------|
+godep: godep
+godep:
+godep: godep helps build packages reproducibly by fixing their dependencies.
+godep: This tool assumes you are working in a standard Go workspace, as 
+godep: described in http://golang.org/doc/code.html.  We expect godep to 
+godep: build on Go 1.4* or newer, but you can use it on any project that
+godep: works with Go 1 or newer.
+godep:
+godep: Homepage: https://github.com/tools/godep
+godep:
+godep:

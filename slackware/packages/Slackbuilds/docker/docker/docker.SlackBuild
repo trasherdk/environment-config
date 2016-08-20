@@ -1,0 +1,96 @@
+#!/bin/sh
+# Slackware build script for docker
+#
+# Written by Vincent Batts <vbatts@hashbangbash.com>
+# Updates by Michael Pratt <hi@michael-pratt.com>
+
+PRGNAM=docker
+VERSION=${VERSION:-1.12.1}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
+GITHASH="23cf638"
+DOCKER_URL=""
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM-$VERSION
+
+#wget -c "https://github.com/docker/docker/archive/v${VERSION}.tar.gz" -O ${CWD}/${PRGNAM}-${VERSION}.tar.gz
+tar xvf ${CWD}/${PRGNAM}-${VERSION}.tar.gz
+cd $PRGNAM-$VERSION
+chown -R root:root .
+
+# the have symlinks in their testdata that goes outside the context of this build
+find . ! -type l \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o ! -type l \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+ -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+unset GOPATH
+mkdir -p ${PKG}/usr/share/gocode/src/github.com/docker/docker
+cp -a .  ${PKG}/usr/share/gocode/src/github.com/docker/docker/
+
+AUTO_GOPATH=1 DOCKER_GITCOMMIT="$GITHASH" ./hack/make.sh dynbinary
+#./man/md2man-all.sh  (requires go-md2man)
+
+install -Dm755 "bundles/${VERSION}/dynbinary-client/docker-${VERSION}" "${PKG}/usr/bin/docker"
+install -Dm755 "bundles/${VERSION}/dynbinary-daemon/docker-proxy-${VERSION}" "${PKG}/usr/bin/docker-proxy"
+install -Dm755 "bundles/${VERSION}/dynbinary-daemon/dockerd-${VERSION}" "${PKG}/usr/bin/dockerd"
+
+# completion
+install -Dm644 'contrib/completion/bash/docker' "${PKG}/usr/share/bash-completion/completions/docker"
+install -Dm644 'contrib/completion/zsh/_docker' "${PKG}/usr/share/zsh/site-functions/_docker"
+install -Dm644 'contrib/completion/fish/docker.fish' "${PKG}/usr/share/fish/vendor_completions.d/docker.fish"
+
+# vim syntax
+install -Dm644 'contrib/syntax/vim/syntax/dockerfile.vim' "${PKG}/usr/share/vim/vimfiles/syntax/dockerfile.vim"
+install -Dm644 'contrib/syntax/vim/ftdetect/dockerfile.vim' "${PKG}/usr/share/vim/vimfiles/ftdetect/dockerfile.vim"
+
+# man
+#install -dm755 "${PKG}/usr/share/man"
+#mv man/man* "${PKG}/usr/share/man"
+
+install -D --mode 0644 $CWD/config/docker.default $PKG/etc/default/docker.new
+install -D --mode 0644 $CWD/config/docker.logrotate $PKG/etc/logrotate.d/docker.new
+install -D --mode 0755 $CWD/config/rc.docker $PKG/etc/rc.d/rc.docker.new
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS CONTRIBUTING.md CHANGELOG.md LICENSE README.md NOTICE VERSION $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$(echo $VERSION | sed 's/-dev/dev/g')-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

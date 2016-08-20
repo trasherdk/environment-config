@@ -1,0 +1,79 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.docker
+#
+# start/stop/restart the docker daemon
+#
+# Docker is an open-source project to easily create lightweight, portable,
+# self-sufficient containers from any application.
+#
+# For information on these options, "man docker daemon".
+
+BASE="docker"
+DOCKER="/usr/bin/${BASE}"
+DOCKER_PIDFILE="/var/run/${BASE}-daemon.pid"
+DOCKER_LOG="/var/log/docker.log"
+DOCKER_OPTS=""
+
+# Default Options
+if [ -f /etc/default/${BASE} ]; then
+    . /etc/default/${BASE}
+fi
+
+# Check docker is present
+if [ ! -x ${DOCKER} ]; then
+    echo "${DOCKER} not present or not executable"
+    exit 1
+fi
+
+# Start Docker:
+docker_start() {
+    echo "starting ${BASE} daemon ..."
+    # If there is an old PID file (no docker running), clean it up:
+    if [ -r ${DOCKER_PIDFILE} ]; then
+        if ! ps axc | grep docker 1> /dev/null 2> /dev/null ; then
+            echo "Cleaning up old ${DOCKER_PIDFILE}."
+            rm -f ${DOCKER_PIDFILE}
+        fi
+    fi
+
+    ${DOCKER} daemon --pidfile="${DOCKER_PIDFILE}" ${DOCKER_OPTS} >> ${DOCKER_LOG} 2>&1 &
+}
+
+# Stop Docker:
+docker_stop() {
+    echo "stopping ${BASE} ..."
+    if [ -r ${DOCKER_PIDFILE} ]; then
+        kill $(cat ${DOCKER_PIDFILE})
+        [ -f "${DOCKER_PIDFILE}" ] && rm -rf ${DOCKER_PIDFILE}
+    fi
+}
+
+# Restart Docker:
+docker_restart() {
+    docker_stop
+    docker_start
+}
+
+case "$1" in
+    'start')
+        docker_start
+        ;;
+    'stop')
+        docker_stop
+        ;;
+    'restart')
+        docker_restart
+        ;;
+    'status')
+        if [ -f ${DOCKER_PIDFILE} ] && ps -o cmd $(cat ${DOCKER_PIDFILE}) | grep -q ${BASE} ; then
+            echo "status of ${BASE}: running"
+        else
+            echo "status of ${BASE}: stopped"
+        fi
+        ;;
+    *)
+        echo "usage $0 start|stop|restart|status"
+esac
+
+exit 0
