@@ -24,38 +24,6 @@ if [ -w "/etc/" ]; then
     cp ${LOCATION}/hosts/hosts.allow /etc/hosts.allow
     cp ${LOCATION}/hosts/hosts.deny /etc/hosts.deny
     echo ""
-
-    if [ -e "/etc/httpd/httpd.conf" ]; then
-
-        if [ -f "/etc/httpd/extra/httpd-userdir.conf" ]; then
-            echo "Modifying httpd.conf to allow userdir_module"
-            sed -i 's:#Include /etc/httpd/extra/httpd-userdir.conf:Include /etc/httpd/extra/httpd-userdir.conf:' /etc/httpd/httpd.conf
-            sed -i 's:#Include /etc/httpd/mod_php.conf:Include /etc/httpd/mod_php.conf:' /etc/httpd/httpd.conf
-        fi
-
-        if [ -f "/usr/lib64/httpd/modules/mod_userdir.so" ]; then
-            echo "Enabling mod_rewrite and userdir_module (64Bit)"
-            sed -i 's:#LoadModule userdir_module lib64/httpd/modules/mod_userdir.so:LoadModule userdir_module lib64/httpd/modules/mod_userdir.so:' /etc/httpd/httpd.conf
-            sed -i 's:#LoadModule rewrite_module lib64/httpd/modules/mod_rewrite.so:LoadModule rewrite_module lib64/httpd/modules/mod_rewrite.so:' /etc/httpd/httpd.conf
-        elif [ -f "/usr/lib/httpd/modules/mod_userdir.so" ]; then
-            echo "Enabling mod_rewrite and userdir_module (32Bit)"
-            sed -i 's:#LoadModule userdir_module lib/httpd/modules/mod_userdir.so:LoadModule userdir_module lib/httpd/modules/mod_userdir.so:' /etc/httpd/httpd.conf
-            sed -i 's:#LoadModule rewrite_module lib/httpd/modules/mod_rewrite.so:LoadModule rewrite_module lib/httpd/modules/mod_rewrite.so:' /etc/httpd/httpd.conf
-        fi
-
-        if [ -z "$(grep 'index.php' /etc/httpd/httpd.conf)" ]; then
-            echo "Enabling index.php in the DirectoryIndex directive"
-            sed -i 's:DirectoryIndex index.html:DirectoryIndex index.html index.php:' /etc/httpd/httpd.conf
-        fi
-
-        if [ -z "$(grep 'ServerSignature' /etc/httpd/httpd.conf)" ]; then
-            echo "Disable ServerSignature and ServerTokens"
-            echo -e "ServerSignature Off" >> /etc/httpd/httpd.conf
-            echo -e "ServerTokens Prod" >> /etc/httpd/httpd.conf
-        fi
-
-        echo ""
-    fi
 fi
 
 if ! [ -e "${HOME}/.bin/psysh" ]; then
