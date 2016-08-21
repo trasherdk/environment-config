@@ -2,5 +2,5 @@
 # These are flags passed after `docker daemon`
 #
 # For Example:
-# DOCKER_OPTS=" -D --storage-driver=overlay"
+#DOCKER_OPTS=" -D --storage-driver=overlay"
 DOCKER_OPTS=""
