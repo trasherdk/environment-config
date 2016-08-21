@@ -1,0 +1,50 @@
+#!/bin/sh
+# Slackbuild for the Ambiance&Radiance-Flat-Colors GTK theme
+# Written by Michael Pratt <me@michael-pratt.com> 
+
+set -e
+PRGNAM="ambiance-radiance-flat-colors-gtk-theme"
+PRGNAMTAR="Ambiance&Radiance-Flat-Colors-16-04-1-LTS-GTK-3-18Theme.tar.gz"
+PRGNAMGOOGLE="0B7iDWdwgu9QATV96bTVUSktlXzQ"
+VERSION="16.04.1"
+BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+# Automatically determine the architecture we're building on:
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+rm -rf $PKG
+[ -f "$CWD/$PRGNAMTAR" ] && mv "$CWD/$PRGNAMTAR" "$CWD/$PRGNAM-$VERSION.tar.gz"
+[ -f "$CWD/$PRGNAMGOOGLE" ] && mv "$CWD/$PRGNAMGOOGLE" "$CWD/$PRGNAM-$VERSION.tar.gz"
+mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM-$VERSION
+
+cd $TMP/$PRGNAM-$VERSION
+tar -xvf $CWD/$PRGNAM-$VERSION.tar.gz
+chown -R root:root .
+find . -type f -exec chmod 644 {} \;
+find . -type d -exec chmod 755 {} \;
+
+mkdir -p $PKG/usr/share/themes
+cp -r * $PKG/usr/share/themes
+rm -rf $PKG/usr/share/themes/README-Manual.txt
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
