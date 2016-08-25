@@ -61,7 +61,20 @@ if [ -e "/etc/slackware-version" ]; then
 
         read -p "Do you want to install slackware packages? (y/n) " INSTALLPKGS
         if [[ "${INSTALLPKGS}" == "y" ]]; then
-            bash ${CURRENTLOCATION}/packages/install.sh ${ROOTLOCATION}
+            if [ -n "$(ls /var/log/packages/ | grep 'slackpkg+')" ] && [ -z "$(ls /var/log/packages/ | grep chromium)" ]; then
+                echo "Using slackpkg/slackpkg+ to install alienbob stuff"
+                slackpkg update
+                slackpkg update gpg
+
+                alienpkgs="multilib chromium vlc ffmpeg wine libreoffice"
+                for p in ${alienpkgs}; do
+                    slackpkg install ${p}
+                done
+            else
+                echo "Skipping slackpkg+ stuff"
+            fi
+
+            bash ${CURRENTLOCATION}/
         fi
     fi
 
