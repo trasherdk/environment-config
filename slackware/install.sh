@@ -28,19 +28,13 @@ if [ -e "/etc/slackware-version" ]; then
         copyIt ${CURRENTLOCATION}/config/rc.local_shutdown /etc/rc.d/rc.local_shutdown
         echo ""
 
-        if [ -z "$(grep 'startup.mp4' /etc/rc.d/rc.S)" ]; then
+        if [ -z "$(grep -i 'bootsplash' /etc/rc.d/rc.S)" ]; then
             echo "Applying Bootsplash patch"
             cd /etc/rc.d/
             cp ${CURRENTLOCATION}/config/bootsplash.patch /etc/rc.d/
             patch -p1 -N < bootsplash.patch
             rm -rf /etc/rc.d/bootsplash.patch
-            echo ""
-        fi
-
-        if [ ! -e "/boot/video/startup.mp4" ] && [ -e "${CURRENTLOCATION}/config/video/bwtbm-startup.mp4" ]; then
-            mkdir -p /boot/video/
-            echo "Copy startup video to /boot/video/startup.mp4"
-            cp -r ${CURRENTLOCATION}/config/video/bwtbm-startup.mp4 /boot/video/startup.mp4
+            mkdir -p /boot/video
             echo ""
         fi
     fi
