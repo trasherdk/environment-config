@@ -11,6 +11,13 @@ NOTINSTALLED=()
 # Source functions
 source "${ROOTLOCATION}/functions.sh"
 
+
+read -p "Do you want to install system packages? (y/n) " INSTALLPKGS
+if [[ "${INSTALLPKGS}" == "n" ]]; then
+    exit 0
+fi
+
+
 # Get all packages
 LIST=$(grep -v '^$\|^\s*\#' ${CURRENTLOCATION}/packages.list)
 if [[ "$(uname -m)" == "x86_64" ]]; then

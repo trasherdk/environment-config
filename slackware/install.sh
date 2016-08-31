@@ -68,7 +68,7 @@ if [ -e "/etc/slackware-version" ]; then
                 echo "Skipping slackpkg+ stuff"
             fi
 
-            bash ${CURRENTLOCATION}/
+            bash ${CURRENTLOCATION}/slackbuilds/build-all.sh
         fi
     fi
 

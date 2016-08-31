@@ -1,2 +1,3 @@
 #!/bin/bash
-bash docker/build-docker.sh
+CWD=$(dirname $0)
+bash ${CWD}/docker/build-docker.sh

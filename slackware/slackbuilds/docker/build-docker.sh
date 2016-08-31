@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Build everything we need for docker
-CWD=$(pwd)
+CWD=$(dirname $0)
 SLACKBUILDS=( 'godep/godep.SlackBuild' 'runc/runc.SlackBuild' 'containerd/containerd.SlackBuild' 'docker/docker.SlackBuild' 'docker-compose/docker-compose.SlackBuild')
 [[ "$(whoami)" != "root" ]] && echo "You need to be root in order to run this script" && exit 1
 for package in ${SLACKBUILDS[@]}; do
