@@ -7,7 +7,7 @@ SLACKBUILDS=( 'godep/godep.SlackBuild' 'runc/runc.SlackBuild' 'containerd/contai
 for package in ${SLACKBUILDS[@]}; do
     pkg=$(basename ${package} | sed 's/\.SlackBuild//g')
     ! [ -d "${CWD}/$(dirname ${package})" ] && echo "${package} not found" && continue
-    if [ -z $(ls /var/log/packages/ | egrep -i "^${pkg}-") ]; then
+    if [ -z $(ls /var/log/packages/ | egrep -m 1 -i "^${pkg}-") ]; then
         cd ${CWD}/$(dirname ${package})
         echo "Building ${pkg}"
         bash $(basename ${package})
