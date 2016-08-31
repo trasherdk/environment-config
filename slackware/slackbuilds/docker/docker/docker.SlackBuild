@@ -7,7 +7,7 @@
 PRGNAM=docker
 VERSION=${VERSION:-1.12.1}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_mpratt}
 GITHASH="23cf638"
 DOCKER_URL=""
 CWD=$(pwd)
@@ -44,7 +44,7 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
 
-#wget -c "https://github.com/docker/docker/archive/v${VERSION}.tar.gz" -O ${CWD}/${PRGNAM}-${VERSION}.tar.gz
+wget -c "https://github.com/docker/docker/archive/v${VERSION}.tar.gz" -O ${CWD}/${PRGNAM}-${VERSION}.tar.gz
 tar xvf ${CWD}/${PRGNAM}-${VERSION}.tar.gz
 cd $PRGNAM-$VERSION
 chown -R root:root .
