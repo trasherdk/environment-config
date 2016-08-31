@@ -21,14 +21,14 @@ if [ -w "/etc/" ]; then
         echo ""
     fi
 
-    if [ -n "$(egrep -i '^ ?All' /etc/hosts.deny)" ]; then
+    if [ -z "$(egrep -i '^ ?All' /etc/hosts.deny)" ]; then
         echo "Closing hosts.deny"
         sed -i 's/^#//g;s/^/#/g' /etc/hosts.deny
         sed -i "\$i All: All"  /etc/hosts.deny
     fi
 
-    LINES=( 'sshd:192.168.0.,10.42.0.,127.0.0.1' 'httpd:127.0.0.1' )
-    for l in $LINES[@]; do
+    LINES=( 'sshd:192.168.0.,192.168.1.,10.42.0.,127.0.0.1' 'httpd:127.0.0.1' )
+    for l in ${LINES[@]}; do
         if [ -z $(grep -i ${l} /etc/hosts.allow) ]; then
             echo "Adding line ${l} to /etc/hosts.allow"
             sed -i "\$i ${l}"  /etc/hosts.allow
