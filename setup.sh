@@ -11,7 +11,7 @@ LOCATION=$(realpath $(dirname $0))
 ##################################################################
 # Create .bin directory
 mkdir -p ~/.bin/
-[ ! -e "${HOME}/ssh/config" ] && mkdir -p ${HOME}/ssh/ && touch ${HOME}/ssh/config
+[ ! -e "${HOME}/.ssh/config" ] && mkdir -p ${HOME}/.ssh/ && touch ${HOME}/.ssh/config
 
 # Modify some /etc stuff
 if [ -w "/etc/" ]; then
@@ -40,12 +40,11 @@ fi
 
 HOSTS=( 'adrastea' 'parsiphae' )
 for h in ${HOSTS[@]}; do
-    if [ -z $(grep -i -o ${h} ${HOME}/ssh/config) ]; then
-        echo "Adding ssh host info from ${h} to ${HOME}/ssh/config"
-        cat ${LOCATION}/config/ssh/${h} >> ${HOME}/ssh/config
-        echo ""
+    if [ -z $(grep -i -o ${h} ${HOME}/.ssh/config) ]; then
+        echo "Adding ssh host info from ${h} to ${HOME}/.ssh/config"
+        cat ${LOCATION}/config/ssh/${h} >> ${HOME}/.ssh/config
     else
-        echo "${h} already in ${HOME}/ssh/config"
+        echo "${h} already in ${HOME}/.ssh/config"
     fi
 
     if [ -z "$(grep -i -o ${h} /etc/hosts)" ] && [ -w "/etc/hosts" ]; then
