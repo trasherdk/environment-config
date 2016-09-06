@@ -36,21 +36,24 @@ if [ -w "/etc/" ]; then
         fi
     done
 
-    HOSTS=( 'adrastea' 'parsiphae' )
-    for h in ${HOSTS[@]}; do
-        if [ -z $(grep -i ${h} ${HOME}/ssh/config) ]; then
-            echo "Adding ssh host info from ${h} to ${HOME}/ssh/config"
-            cat ${LOCATION}/config/ssh/${h} >> ${HOME}/ssh/config
-            echo ""
-        fi
-
-        if [ -z "$(grep -i ${h} /etc/hosts)" ]; then
-            echo "Adding ${h} to /etc/hosts"
-            line=$(cat ${LOCATION}/config/hosts/${h})
-            sed -i "\$i ${line}"  /etc/hosts
-        fi
-    done
 fi
+
+HOSTS=( 'adrastea' 'parsiphae' )
+for h in ${HOSTS[@]}; do
+    if [ -z $(grep -i -o ${h} ${HOME}/ssh/config) ]; then
+        echo "Adding ssh host info from ${h} to ${HOME}/ssh/config"
+        cat ${LOCATION}/config/ssh/${h} >> ${HOME}/ssh/config
+        echo ""
+    else
+        echo "${h} already in ${HOME}/ssh/config"
+    fi
+
+    if [ -z "$(grep -i -o ${h} /etc/hosts)" ] && [ -w "/etc/hosts" ]; then
+        echo "Adding ${h} to /etc/hosts"
+        line=$(cat ${LOCATION}/config/hosts/${h})
+        sed -i "\$i ${line}"  /etc/hosts
+    fi
+done
 
 if ! [ -e "${HOME}/.bin/psysh" ]; then
     echo "Installing psysh"
