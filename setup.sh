@@ -22,7 +22,7 @@ fi
 if [ -w "/etc/fstab" ] &&  [ -z "$(grep -i '64e868cc-05f2-4096-a321-d5af6b36eb8b' /etc/fstab)" ]; then
     [ -w "/mnt" ] && mkdir -p /mnt/storage && mkdir -p /mnt/share && mkdir -p /mnt/windows
     echo "Adding External Mount Points to /etc/fstab"
-    cat ${LOCATION}/config/fstab >> /etc/fstab
+    cat ${LOCATION}/config/fstab/fstab >> /etc/fstab
     echo ""
 fi
 

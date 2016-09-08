@@ -1,3 +1,0 @@
-UUID=687320772252F94A /mnt/share fuseblk rw,nosuid,nodev,allow_other,default_permissions,blksize=4096 0 0
-UUID=64e868cc-05f2-4096-a321-d5af6b36eb8b /mnt/storage ext4 rw,nodev,nosuid,uhelper=udisks2 0 0
-UUID=687320772252F94A /mnt/share fuseblk rw,nosuid,nodev,allow_other,default_permissions,blksize=4096 0 0
