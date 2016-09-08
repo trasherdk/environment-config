@@ -56,6 +56,18 @@ for h in ${HOSTS[@]}; do
     fi
 done
 
+if [ -w "/etc/udev/rules.d/" ]; then
+    echo "Adding Touchpad rules, when adding"
+    cat ${LOCATION}/config/udev/01-touchpad.rules > /etc/udev/rules.d/01-touchpad.rules
+    echo ""
+fi
+
+if [ -w "/etc/X11/xorg.conf.d/" ]; then
+    echo "Adding Touchpad configuration options to X11"
+    cat ${LOCATION}/config/X11/60-synaptics.conf > /etc/X11/xorg.conf.d/60-synaptics.conf
+    echo ""
+fi
+
 if ! [ -e "${HOME}/.bin/psysh" ]; then
     echo "Installing psysh"
     wget http://psysh.org/psysh -O ~/.bin/psysh

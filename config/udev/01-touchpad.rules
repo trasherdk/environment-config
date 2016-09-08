@@ -1,0 +1,16 @@
+# Disable Touchpad when mouse is plugged
+# file: /etc/udev/rules.d/01-touchpad.rules
+# link: https://wiki.archlinux.org/index.php/Touchpad_Synaptics#Disable_touchpad_while_typing
+
+SUBSYSTEM=="input", KERNEL=="mouse[0-9]*", ACTION=="add", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/username/.Xauthority", RUN+="/usr/bin/synclient TouchpadOff=1"
+SUBSYSTEM=="input", KERNEL=="mouse[0-9]*", ACTION=="remove", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/username/.Xauthority", RUN+="/usr/bin/synclient TouchpadOff=0"
+
+# If the touchpad is always deactivated at startup, even when no mouse is plugged in, try adding 
+# the following criteria between the KERNEL and ACTION parameters above:
+#
+# ATTRS{name}!="*TouchPad", ATTRS{name}!="*Stick",
+
+# The Original lines were
+#
+# SUBSYSTEM=="input", KERNEL=="mouse[0-9]*", ACTION=="add", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/username/.Xauthority", RUN+="/usr/bin/synclient TouchpadOff=1"
+# SUBSYSTEM=="input", KERNEL=="mouse[0-9]*", ACTION=="remove", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/username/.Xauthority", RUN+="/usr/bin/synclient TouchpadOff=0"
