@@ -86,6 +86,9 @@ ratpoison
 xmobar
 xmonad
 galculator
+slackware-grub2-theme
+xfce4-battery-plugin
+xbattmon
 
 # Security
 aircrack-ng
@@ -146,6 +149,7 @@ fslint
 git-cola
 google-webdesigner
 mysql-workbench
+dbeaver
 the_silver_searcher
 tinyxml
 python-magick
