@@ -1,0 +1,11 @@
+Grub Customizer
+
+Grub Customizer is a graphical interface to configure the GRUB2/BURG settings and menuentries
+
+Features:
+ * move, remove or rename menuentries (they stey updatable by update-grub)
+ * edit the contents of menuentries or create new ones (internally it edits the 40_custom)
+ * support for GRUB2 and BURG
+ * reinstallation of the bootloader to MBR
+ * settings like default operating system, kernel params, background image and text colors etc.
+ * changing the installed operating system by running on a live cd
