@@ -68,6 +68,11 @@ if [ -w "/etc/X11/xorg.conf.d/" ]; then
     echo ""
 fi
 
+if [ -w "/usr/share/apps/kdm/sessions/" ]; then
+    echo "Adding i3 (with dbus) item to KDM"
+    cat ${LOCATION}/config/i3/i3-dbus.desktop > /usr/share/apps/kdm/sessions/i3-dbus.desktop
+fi
+
 if ! [ -e "${HOME}/.bin/psysh" ]; then
     echo "Installing psysh"
     wget http://psysh.org/psysh -O ~/.bin/psysh
