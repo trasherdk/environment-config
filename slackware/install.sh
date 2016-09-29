@@ -6,6 +6,7 @@
 set -e
 ROOTLOCATION=${1}
 CURRENTLOCATION="${ROOTLOCATION}/slackware"
+MAXRES=$(xrandr --current | egrep -o 'current [^,]+' | sed 's/current//g' | tr -d [:blank:] | sed 's/x/:/g')
 
 # Source functions
 source "${ROOTLOCATION}/functions.sh"
@@ -30,8 +31,9 @@ if [ -e "/etc/slackware-version" ]; then
 
         if [ -z "$(grep -i 'bootsplash' /etc/rc.d/rc.S)" ]; then
             echo "Applying Bootsplash patch"
+
             cd /etc/rc.d/
-            cp ${CURRENTLOCATION}/config/bootsplash.patch /etc/rc.d/
+            cat ${CURRENTLOCATION}/config/bootsplash.patch | sed 's/{SCALE}/'${MAXRES}'/g' > /etc/rc.d/bootsplash.patch
             patch -p1 -N < bootsplash.patch
             rm -rf /etc/rc.d/bootsplash.patch
             mkdir -p /boot/video

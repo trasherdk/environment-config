@@ -26,7 +26,7 @@ diff -ruN original/rc.6 new/rc.6
 +VDP=$(find /boot/video/ -type f -iname "*.mp4" | shuf -n1)
 +if [ -f "${VDP}" ]; then
 +    echo "Shutdown Bootsplash"
-+    mplayer -nosound -quiet -ss 1 -vo fbdev2 -vf scale=1366:768 ${VDP} < /dev/null > /dev/null &
++    mplayer -nosound -quiet -ss 1 -vo fbdev2 -vf scale={SCALE} ${VDP} < /dev/null > /dev/null &
 +else
 +    echo "No Shutdown Bootsplash found."
 +fi
@@ -57,7 +57,7 @@ diff -ruN original/rc.S new/rc.S
  
 +VDP=$(find /boot/video/ -type f -iname "*.mp4" | shuf -n1)
 +if [ -f "${VDP}" ]; then
-+    mplayer -quiet -ss 1 -vo fbdev2 -vf scale=1366:768 -nosound ${VDP} < /dev/null > /dev/null &
++    mplayer -quiet -ss 1 -vo fbdev2 -vf scale={SCALE} -nosound ${VDP} < /dev/null > /dev/null &
 +else
 +    echo "No Startup Bootsplash"
 +fi
