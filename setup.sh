@@ -95,5 +95,12 @@ if ! [ -e "${HOME}/.bin/docker-compose" ]; then
     echo ""
 fi
 
+if ! [ -e "${HOME}/.bin/gdrive" ]; then
+    echo "Installing gdrive"
+    curl -L "https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download" > ${HOME}/.bin/gdrive
+    chmod +x ${HOME}/.bin/gdrive
+    echo ""
+fi
+
 bash "${LOCATION}/slackware/install.sh" "${LOCATION}"
 bash "${LOCATION}/packages/install.sh" "${LOCATION}"
