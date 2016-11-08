@@ -171,6 +171,7 @@ nodejs
 poedit
 pylint
 universal-ctags
+awscli
 
 # Fonts
 adobe-source-code-pro-font
