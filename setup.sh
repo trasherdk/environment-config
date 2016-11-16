@@ -40,6 +40,11 @@ for l in ${LINES[@]}; do
     fi
 done
 
+if [ -z "$(grep -i -o 'ServerAliveInterval 60' ${HOME}/.ssh/config)" ]; then
+    echo "Adding General ssh config into ${HOME}/.ssh/config"
+    cat ${LOCATION}/config/ssh/main >> ${HOME}/.ssh/config
+fi
+
 HOSTS=( 'adrastea' 'parsiphae' )
 for h in ${HOSTS[@]}; do
     if [ -z $(grep -i -o ${h} ${HOME}/.ssh/config) ]; then
