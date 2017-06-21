@@ -73,6 +73,12 @@ if [ -w "/etc/X11/xorg.conf.d/" ]; then
     echo ""
 fi
 
+if [ -w "/etc/sudoers.d/" ]; then
+    echo "Adding pratt sudoers config"
+    cat ${LOCATION}/config/sudo/50-pratt.conf > /etc/sudoers.d/50-pratt.conf
+    echo ""
+fi
+
 if [ -w "/usr/share/apps/kdm/sessions/" ]; then
     echo "Adding i3 (with dbus) item to KDM"
     cat ${LOCATION}/config/i3/i3-dbus.desktop > /usr/share/apps/kdm/sessions/i3-dbus.desktop
@@ -87,8 +93,16 @@ fi
 
 if ! [ -e "${HOME}/.bin/phpunit" ]; then
     echo "Installing phpunit"
-    wget https://phar.phpunit.de/phpunit.phar -O ~/.bin/phpunit
+    #wget https://phar.phpunit.de/phpunit-6.0.phar -O ~/.bin/phpunit
+    wget https://phar.phpunit.de/phpunit-5.7.phar -O ~/.bin/phpunit
     chmod +x ~/.bin/phpunit
+    echo ""
+fi
+
+if ! [ -e "${HOME}/.bin/phploc" ]; then
+    echo "Installing phploc"
+    curl -L "https://phar.phpunit.de/phploc.phar" > ${HOME}/.bin/phploc
+    chmod +x ${HOME}/.bin/phploc
     echo ""
 fi
 

@@ -17,14 +17,6 @@ for profile_script in /etc/profile.d/*.sh ; do
 done
 unset profile_script
 
-# Network Alias
-alias sdhcpcd="sudo /sbin/dhcpcd"
-alias sdhclient="sudo /sbin/dhclient"
-alias sifconfig="sudo /sbin/ifconfig"
-alias siwconfig="sudo /sbin/iwconfig"
-alias siwlist="sudo /sbin/iwlist"
-alias sshutdown="sudo /sbin/shutdown"
-
 # Non-root Alias for Administration tools
 if [ "$(whoami)" != "root" ]; then
     alias sbopkg="su -c sbopkg"
