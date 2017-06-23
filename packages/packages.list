@@ -9,7 +9,7 @@ xvidcore
 gstreamer1
 gst1-plugins-base
 libconfig
-tolua++
+#tolua++
 
 # Media Programs
 easytag
