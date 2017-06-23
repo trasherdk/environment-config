@@ -2,12 +2,7 @@
 #
 # Build everything we need for linux
 CWD=$(dirname $0)
-SLACKBUILDS=( 'docker/godep/godep.SlackBuild' \
-    'docker/runc/runc.SlackBuild' \
-    'docker/containerd/containerd.SlackBuild' \
-    'docker/docker/docker.SlackBuild' \
-    'tidy-html5/tidy-html5.SlackBuild' \
-    'grub-customizer/grub-customizer.SlackBuild' )
+SLACKBUILDS=( 'tidy-html5/tidy-html5.SlackBuild' 'grub-customizer/grub-customizer.SlackBuild' )
 
 [[ "$(whoami)" != "root" ]] && echo "You need to be root in order to run this script" && exit 1
 for package in ${SLACKBUILDS[@]}; do
