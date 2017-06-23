@@ -59,6 +59,13 @@ for h in ${HOSTS[@]}; do
         line=$(cat ${LOCATION}/config/hosts/${h})
         sed -i "\$i ${line}"  /etc/hosts
     fi
+
+    if [ -w "/etc/NetworkManager/system-connections/" ] && [ -n "$(grep -i -o ${h} /etc/HOSTNAME)" ]; then
+        echo "Creating network configuration for ${h}"
+        cat ${LOCATION}/config/nm/${h}-central-city > "/etc/NetworkManager/system-connections/central city"
+        chmod 600 "/etc/NetworkManager/system-connections/central city"
+    fi
+
 done
 
 if [ -w "/etc/udev/rules.d/" ]; then
