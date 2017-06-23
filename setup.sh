@@ -118,14 +118,6 @@ if ! [ -e "${HOME}/.bin/phploc" ]; then
     echo ""
 fi
 
-if ! [ -e "${HOME}/.bin/docker-compose" ]; then
-    DCVERSION="1.8.0"
-    echo "Installing docker-compose ${DCVERSION}"
-    curl -L "https://github.com/docker/compose/releases/download/${DCVERSION}/docker-compose-$(uname -s)-$(uname -m)" > ${HOME}/.bin/docker-compose
-    chmod +x ${HOME}/.bin/docker-compose
-    echo ""
-fi
-
 if ! [ -e "${HOME}/.bin/gdrive" ]; then
     echo "Installing gdrive"
     curl -L "https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download" > ${HOME}/.bin/gdrive
