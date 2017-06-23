@@ -92,9 +92,14 @@ if ! [ -e "${HOME}/.bin/psysh" ]; then
 fi
 
 if ! [ -e "${HOME}/.bin/phpunit" ]; then
-    echo "Installing phpunit"
-    #wget https://phar.phpunit.de/phpunit-6.0.phar -O ~/.bin/phpunit
-    wget https://phar.phpunit.de/phpunit-5.7.phar -O ~/.bin/phpunit
+    if [ "$(php -v | egrep -o 'PHP ([0-9])' | awk '{print $2}')" -eq "5" ]; then
+        PVER="5.7"
+    else
+        PVER="6.0"
+    fi
+
+    echo "Installing phpunit ${PVER}"
+    wget https://phar.phpunit.de/phpunit-${PVER}.phar -O ~/.bin/phpunit
     chmod +x ~/.bin/phpunit
     echo ""
 fi
@@ -120,6 +125,14 @@ if ! [ -e "${HOME}/.bin/gdrive" ]; then
     chmod +x ${HOME}/.bin/gdrive
     echo ""
 fi
+
+if ! [ -e "${HOME}/.bin/googler" ]; then
+    echo "Installing googler"
+    curl -L "https://raw.githubusercontent.com/jarun/googler/v3.1/googler" > ${HOME}/.bin/googler
+    chmod +x ${HOME}/.bin/googler
+    echo ""
+fi
+
 
 bash "${LOCATION}/slackware/install.sh" "${LOCATION}"
 bash "${LOCATION}/packages/install.sh" "${LOCATION}"
