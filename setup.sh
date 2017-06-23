@@ -45,7 +45,7 @@ if [ -z "$(grep -i -o 'ServerAliveInterval 60' ${HOME}/.ssh/config)" ]; then
     cat ${LOCATION}/config/ssh/main >> ${HOME}/.ssh/config
 fi
 
-HOSTS=( 'adrastea' 'parsiphae' )
+HOSTS=( 'adrastea' 'pasiphae' )
 for h in ${HOSTS[@]}; do
     if [ -z $(grep -i -o ${h} ${HOME}/.ssh/config) ]; then
         echo "Adding ssh host info from ${h} to ${HOME}/.ssh/config"
