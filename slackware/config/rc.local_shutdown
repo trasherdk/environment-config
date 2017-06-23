@@ -1,9 +1,8 @@
 #!/bin/sh
 #
-# /etc/rc.d/rc.local_shutdown:  Local commands run on shutdown
+# /etc/rc.d/rc.local_shutdown
 # Michael Pratt
-#
-#
+
 if [ -x /etc/rc.d/rc.vboxdrv ]; then
     /etc/rc.d/rc.vboxdrv stop
 fi
@@ -13,9 +12,8 @@ if [ -x /etc/rc.d/rc.docker ]; then
 fi
 
 # Empty out the temp Directories
-
-TMPDIRS=( '/tmp/' '/var/log/removed_packages/' '/var/log/removed_scripts/' '/var/log/sbopkg/' '/var/cache/sbopkg/' )
+TMPDIRS=( '/tmp' '/var/log/removed_packages' '/var/log/removed_scripts' '/var/log/sbopkg' '/var/cache/sbopkg' )
 for i in ${TMPDIRS[@]}; do
-    find ${i} -type f -mtime +15 -delete
-    find ${i} -type d -empty -delete
+    echo "flushing ${i}/*"
+    rm -rf "${i}/*"
 done
