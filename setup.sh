@@ -82,7 +82,8 @@ fi
 
 if [ -w "/etc/sudoers.d/" ]; then
     echo "Adding pratt sudoers config"
-    cat ${LOCATION}/config/sudo/50-pratt.conf > /etc/sudoers.d/50-pratt.conf
+    cat ${LOCATION}/config/sudo/50-pratt.conf > /etc/sudoers.d/50-pratt
+    chmod 0440 /etc/sudoers.d/50-pratt
     echo ""
 fi
 
