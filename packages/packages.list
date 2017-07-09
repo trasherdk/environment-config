@@ -29,6 +29,7 @@ decibel-audio-player
 clementine
 
 # Desktop Stuff
+xclip
 clearlooks-classic-themes
 clearlooks-phenix-theme
 gtk-nodoka-engine
@@ -117,6 +118,7 @@ skypeforlinux
 goffice
 evince
 gtksourceview
+gtksourceview3
 gummi
 texmaker
 dia
@@ -183,6 +185,7 @@ docker-machine
 docker-proxy
 docker-compose
 tidy-html5
+meld3
 
 # Fonts
 adobe-source-code-pro-font
