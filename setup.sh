@@ -132,6 +132,21 @@ if ! [ -e "${HOME}/.bin/googler" ]; then
     echo ""
 fi
 
+if ! [ -e "${HOME}/.bin/phpmd" ]; then
+    echo "Installing PHP Mess Detector"
+    curl -L "http://static.phpmd.org/php/latest/phpmd.phar" > ${HOME}/.bin/phpmd
+    chmod +x ${HOME}/.bin/phpmd
+    echo ""
+fi
+
+if ! [ -e "${HOME}/.bin/phpcs" ] || ! [ -e "${HOME}/.bin/phpcbf" ]; then
+    echo "Installing PHP Code Sniffer"
+    curl -L "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar" > ${HOME}/.bin/phpcs
+    curl -L "https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar" > ${HOME}/.bin/phpcbf
+    chmod +x ${HOME}/.bin/phpcs
+    chmod +x ${HOME}/.bin/phpcbf
+    echo ""
+fi
 
 bash "${LOCATION}/slackware/install.sh" "${LOCATION}"
 bash "${LOCATION}/packages/install.sh" "${LOCATION}"
