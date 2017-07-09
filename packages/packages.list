@@ -14,6 +14,7 @@ libconfig
 # Media Programs
 easytag
 rtmpdump
+jack-audio-connection-kit
 audacity
 espeak
 gpicview
