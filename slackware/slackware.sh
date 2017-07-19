@@ -20,6 +20,12 @@ unset profile_script
 # Non-root Alias for Administration tools
 if [ "$(whoami)" != "root" ]; then
     alias sbopkg="sudo sbopkg"
+    alias installpkg="sudo /sbin/installpkg"
+    alias upgradepkg="sudo /sbin/upgradepkg"
+    alias removepkg="sudo /sbin/removepkg"
+    alias shutdown="sudo /sbin/shutdown"
+    alias reboot="sudo /sbin/reboot"
+    alias halt="sudo /sbin/halt"
     alias slackpkg="su -c 'slackpkg update && slackpkg install-new && slackpkg upgrade-all'"
     alias su="su -l"
 fi
