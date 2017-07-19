@@ -209,6 +209,8 @@ sopcast
 # Stuff that takes long time to build
 vagrant
 virtualbox
+teamviewer
+TeamSpeak3
 wireshark
 digikam
 awoken-icon-theme
