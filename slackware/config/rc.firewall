@@ -32,7 +32,7 @@ IPTR="/usr/sbin/iptables-restore"
 INET_IFACE=( 'eth+' 'wlan+' 'ppp+' )
 
 # Allowed TCP ports
-ALLOWED_TCP=( 80 22 8080 )
+ALLOWED_TCP=( 80 22 8080 9091 )
 
 # Localhost Interface
 LO_IFACE="lo"
