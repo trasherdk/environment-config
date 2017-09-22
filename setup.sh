@@ -92,6 +92,18 @@ if [ -w "/usr/share/apps/kdm/sessions/" ]; then
     cat ${LOCATION}/config/i3/i3-dbus.desktop > /usr/share/apps/kdm/sessions/i3-dbus.desktop
 fi
 
+if [ -w "/etc/" ]; then
+
+    if ! [ -d "/etc/chromium/" ]; then
+        mkdir -p /etc/chromium/
+    fi
+
+    echo "Adding Chromium customization"
+    cat ${LOCATION}/config/chromium/90-kwallet.conf > /etc/chromium/90-kwallet.conf
+    chmod 644 /etc/chromium/90-kwallet.conf
+    echo ""
+fi
+
 if ! [ -e "${HOME}/.bin/psysh" ]; then
     echo "Installing psysh"
     wget http://psysh.org/psysh -O ~/.bin/psysh
