@@ -62,7 +62,7 @@ if [ -e "/etc/slackware-version" ]; then
                 slackpkg update
                 slackpkg update gpg
 
-                alienpkgs="multilib chromium vlc ffmpeg wine libreoffice"
+                alienpkgs="chromium vlc ffmpeg wine libreoffice"
                 for p in ${alienpkgs}; do
                     slackpkg install ${p}
                 done
