@@ -179,6 +179,8 @@ transgui
 transmission-remote-gtk
 wireshark
 rtmpdump
+tightvnc
+x11vnc
 
 # Office
 evince
