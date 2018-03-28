@@ -1,5 +1,3 @@
-s
-LucenePlusPlus
 ORBit2
 lame
 exiftool
@@ -68,6 +66,7 @@ universal-ctags
 vala
 xdebug
 xmlstarlet
+LucenePlusPlus
 
 # Desktop
 tint2
@@ -132,6 +131,10 @@ slackware-grub2-theme
 ssr
 zenity
 xfce4-battery-plugin
+siji-font
+libmpdclient
+jsoncpp
+polybar
 
 # Multimedia
 flashplayer-plugin
