@@ -45,7 +45,7 @@ if [ -z "$(grep -i -o 'ServerAliveInterval 60' ${HOME}/.ssh/config)" ]; then
     cat ${LOCATION}/config/ssh/main >> ${HOME}/.ssh/config
 fi
 
-HOSTS=( 'adrastea' 'pasiphae' )
+HOSTS=( 'adrastea' 'pasiphae' 'amalthea' )
 for h in ${HOSTS[@]}; do
     if [ -z $(grep -i -o ${h} ${HOME}/.ssh/config) ]; then
         echo "Adding ssh host info from ${h} to ${HOME}/.ssh/config"
@@ -62,8 +62,18 @@ for h in ${HOSTS[@]}; do
 
     if [ -w "/etc/NetworkManager/system-connections/" ] && [ -n "$(grep -i -o ${h} /etc/HOSTNAME)" ]; then
         echo "Creating network configuration for ${h}"
-        cat ${LOCATION}/config/nm/${h}-central-city > "/etc/NetworkManager/system-connections/central city"
-        chmod 600 "/etc/NetworkManager/system-connections/central city"
+
+        if [ -e "${LOCATION}/config/nm/${h}-central-city" ]; then
+            cat ${LOCATION}/config/nm/${h}-central-city > "/etc/NetworkManager/system-connections/central city"
+            chmod root:root "/etc/NetworkManager/system-connections/central city"
+            chmod 600 "/etc/NetworkManager/system-connections/central city"
+        fi
+
+        if [ -e "${LOCATION}/config/nm/${h}-wired-local" ]; then
+            cat ${LOCATION}/config/nm/${h}-wired-local > "/etc/NetworkManager/system-connections/wired-local"
+            chown root:root "/etc/NetworkManager/system-connections/wired-local"
+            chmod 600 "/etc/NetworkManager/system-connections/wired-local"
+        fi
     fi
 
 done
