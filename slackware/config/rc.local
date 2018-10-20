@@ -36,9 +36,11 @@ if [ -x /usr/bin/nvidia-modprobe ] && [ -n "$(lspci -v | grep -i vga | grep -i n
 fi
 
 if [ -x /etc/rc.d/rc.teamviewerd ]; then
+    echo -e "Loading Teamviewer Service"
     /etc/rc.d/rc.teamviewerd start
 fi
 
 if [ -x /etc/rc.d/rc.docker ]; then
+    echo -e "Loading Docker Service"
     /etc/rc.d/rc.docker start
 fi
