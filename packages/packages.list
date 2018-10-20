@@ -1,42 +1,33 @@
+# Essentials
 ORBit2
 lame
 exiftool
-eyeD3
 gtkspell3
 imlib2
 libdvdcss
 pcre2
 twolame
-qt5
-# webkitgtk
+lua
 
 # System
 ack
 the_silver_searcher
-adobe-source-code-pro-font
-adobe-source-han-sans-fonts
-adobe-source-sans-pro-font
-adobe-source-serif-pro-font
-docker
-docker-compose
-docker-machine-0.12.2-x86_64-1_SBo
-powerline-status
-conky
 hwinfo
 lz4
 p7zip
 unrar
 terminology
 vagrant
-virtualbox
-virtualbox-kernel
-webcore-fonts
 xarchiver
-xbattmon
 xfburn
 
 # Development
-lua
+docker
+docker-compose
+docker-machine
+docker-machine-kvm
+virtualbox
+virtualbox-kernel
 android-studio
 android-tools
 dbeaver
@@ -68,8 +59,7 @@ xdebug
 xmlstarlet
 LucenePlusPlus
 
-# Desktop
-tint2
+# Desktop - Window Managers
 openbox
 openbox-menu
 openbox-simple-theme
@@ -81,20 +71,6 @@ obmenu
 obmenu-generator
 obsession
 obshutdown
-FontAwesome
-ComixCursors
-murrine
-murrine-themes
-ambiance-radiance-flat-colors-gtk-theme
-clearlooks-classic-themes
-clearlooks-phenix-theme
-awoken-icon-theme
-areao43-icon-theme
-faenza-icon-theme
-faience-icon-theme
-kfaenza-icon-theme
-numix-icon-theme-bevel
-numix-icon-theme-circle
 i3
 i3-py
 i3minator
@@ -105,36 +81,79 @@ enlightenment
 awesome
 awesome-extra
 ratpoison
-slackware-xdg-menu
 xmonad
 xmonad-contrib
 xmobar
-stalonetray
-compton
-compton-conf
-conky-manager
-dmenu
-fbpanel
-gmrun
+
+# Fonts
+webcore-fonts
+adobe-source-code-pro-font
+adobe-source-han-sans-fonts
+adobe-source-sans-pro-font
+adobe-source-serif-pro-font
+FontAwesome
+
+# Gtk themes
 gtk-chtheme
 gtk-engines
 gtk-engines-unico
 gtk-nodoka-engine
-gtk-recordmydesktop
+murrine
+murrine-themes
+ambiance-radiance-flat-colors-gtk-theme
+clearlooks-classic-themes
+clearlooks-phenix-theme
+
+# Icons
+ComixCursors
+faba-icon-theme
+faba-mono-icons
+awoken-icon-theme
+flatwoken-icon-theme
+areao43-icon-theme
+faenza-icon-theme
+faenza-cupertino
+faenza-xfce
+faience-icon-theme
+kfaenza-icon-theme
+boston-icon-theme
+meliae-icon-theme
+numix-icon-theme
+numix-icon-theme-circle
+numix-icon-theme-square
+numix-icon-theme-bevel
+numix-folders
+numix-pack
+vivacious-colors-gtk-icon-theme
+moka-icon-theme
+moka-minimal
+arc-icon-theme
+Zafiro-icons
+
+# Desktop Utilities
+tint2
+slackware-xdg-menu
+stalonetray
 pasystray
+compton
+compton-conf
+conky
+conky-manager
+dmenu
+fbpanel
+gmrun
 thunar-archive-plugin
 thunar-media-tags-plugin
 thunar-thumbnailers
 thunar-vcs-plugin
 thunarx-python
-slackware-grub2-theme
-ssr
 zenity
 xfce4-battery-plugin
 siji-font
 libmpdclient
 jsoncpp
 polybar
+slackware-grub2-theme
 
 # Multimedia
 flashplayer-plugin
@@ -142,6 +161,8 @@ devedeng
 digikam
 ripperX
 xvidcore
+gtk-recordmydesktop
+ssr
 
 # Audio
 audacity
@@ -216,5 +237,9 @@ espeak
 galculator
 
 # Misc
+eyeD3
+qt5
+qt5-webkit
+webkitgtk
 wkhtmltopdf
 xclip
