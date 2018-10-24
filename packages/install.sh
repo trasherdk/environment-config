@@ -63,6 +63,9 @@ if [ -e "/etc/slackware-version" ]; then
         if [ -z $(ls /var/log/packages/ | egrep -m 1 -i "^${pkg}-") ]; then
             echo "Installing ${pkg}"
             if [ -e "/var/lib/sbopkg/queues/${pkg}.sqf" ]; then
+                echo "Using Queue ${pkg}.sqf"
+                echo "Using Queue ${pkg}.sqf" >> "${HOME}/package-install.log"
+                sleep 2
                 sbopkg -B -k -e continue -i ${pkg}.sqf
             else
                 NOTINSTALLED+=("${pkg}")
@@ -75,8 +78,11 @@ if [ -e "/etc/slackware-version" ]; then
     suffix=""
     for i in ${NOTINSTALLED[@]}; do
         echo "Going to install: ${i}"
+        echo "Going to install: ${i}" >> "${HOME}/package-install.log"
         suffix="${suffix} -i ${i}"
     done
+    echo "Preparing Instalation"
+    sleep 5
 
     sbopkg -k -e continue ${suffix}
 fi
