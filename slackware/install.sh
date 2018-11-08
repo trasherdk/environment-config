@@ -55,6 +55,20 @@ if [ -e "/etc/slackware-version" ]; then
             echo ""
         fi
 
+        if ! grep ^mongo: /etc/group 2>&1 > /dev/null; then
+            echo "Creating mongodb group!"
+            groupadd -g 285 mongo
+            useradd -u 285 -d /var/lib/mongodb -s /bin/false -g mongo mongo
+            echo ""
+        fi
+
+        if ! grep ^couchdb: /etc/group 2>&1 > /dev/null; then
+            echo "Creating couchdb group!"
+            groupadd -g 231 couchdb
+            useradd -u 231 -g couchdb -d /var/lib/couchdb -s /bin/sh couchdb
+            echo ""
+        fi
+
         read -p "Do you want to install slackware packages? (y/n) " INSTALLPKGS
         if [[ "${INSTALLPKGS}" == "y" ]]; then
             if [ -n "$(ls /var/log/packages/ | grep 'slackpkg+')" ] && [ -z "$(ls /var/log/packages/ | grep chromium)" ]; then
