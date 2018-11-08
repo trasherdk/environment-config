@@ -58,6 +58,8 @@ vala
 xdebug
 xmlstarlet
 LucenePlusPlus
+atom
+sublime_text
 
 # Desktop - Window Managers
 openbox
@@ -84,6 +86,9 @@ ratpoison
 xmonad
 xmonad-contrib
 xmobar
+arandr
+bleachbit
+cmus
 
 # Fonts
 webcore-fonts
