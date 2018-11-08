@@ -42,6 +42,7 @@ hhvm
 meld3
 netbeans
 nodejs
+idea
 eclipse-cpp
 poedit
 pychecker
@@ -60,6 +61,20 @@ xmlstarlet
 LucenePlusPlus
 atom
 sublime_text
+brackets
+colordiff
+couchdb
+mongodb
+diffuse
+neovim
+eovim
+flow
+mono
+numpy
+numpy3
+qt-creator2
+vscode
+vim-qt
 
 # Desktop - Window Managers
 openbox
@@ -222,7 +237,8 @@ texstudio
 
 # Games
 0ad
-UrbanTerror
+#UrbanTerror
+7kaa
 openttd
 dopewars
 fceux
