@@ -1,0 +1,27 @@
+#!/bin/bash
+# Enables Dual Monitor on amalthea
+
+MONITORS=$(xrandr -q | grep connected | awk '{print $1}' | tr [:space:] ' ')
+
+if [[ "${HOSTNAME}" != "amalthea" ]]; then
+    echo "This Script is meant to be used on Amalthea."
+    exit 0
+fi
+
+if [ -z "$(echo ${MONITORS} | grep -i 'HDMI-1')" ]; then
+    echo "HDMI-1 not found"
+    exit 0
+fi
+
+if [ -z "$(echo ${MONITORS} | grep -i 'DVI-D-1')" ]; then
+    echo "DVI-D-1 not found"
+    exit 0
+fi
+
+xrandr --output HDMI-1 --primary 
+
+if [ -z "$(xrandr -q | grep -o 1920x1080_50)" ]; then
+    xrandr --newmode "1920x1080_50.00"  141.50  1920 2032 2232 2544  1080 1083 1088 1114 -hsync +vsync
+fi
+
+xrandr --output DVI-D-1 --mode 1920x1080_50.00 --pos 1920x0 --rotate normal --output HDMI-1 --mode 1920x1080 --pos 72x0 --rotate normal
