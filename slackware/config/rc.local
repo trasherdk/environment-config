@@ -45,4 +45,10 @@ if [ -x /etc/rc.d/rc.docker ]; then
     /etc/rc.d/rc.docker start
 fi
 
+if [ -x /etc/rc.d/rc.mongodb ]; then
+    /etc/rc.d/rc.mongodb start
+fi
+
+if [ -x /etc/rc.d/rc.couchdb ]; then
+    /etc/rc.d/rc.couchdb start
 fi

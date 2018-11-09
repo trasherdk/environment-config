@@ -11,6 +11,14 @@ if [ -x /etc/rc.d/rc.docker ]; then
     /etc/rc.d/rc.docker stop
 fi
 
+if [ -x /etc/rc.d/rc.mongodb ]; then
+    /etc/rc.d/rc.mongodb stop
+fi
+
+if [ -x /etc/rc.d/rc.couchdb ]; then
+    /etc/rc.d/rc.couchdb stop
+fi
+
 # Empty out the temp Directories
 TMPDIRS=( '/tmp' '/var/log/removed_packages' '/var/log/removed_scripts' '/var/log/sbopkg' '/var/cache/sbopkg' )
 for i in ${TMPDIRS[@]}; do
