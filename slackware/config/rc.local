@@ -45,7 +45,4 @@ if [ -x /etc/rc.d/rc.docker ]; then
     /etc/rc.d/rc.docker start
 fi
 
-if [ -e /root/.environment-config/slackware/bin/enable-dual-monitor  ]; then
-    echo -e "Setting up dual Monitors"
-    bash /root/.environment-config/slackware/bin/enable-dual-monitor
 fi

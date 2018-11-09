@@ -2,7 +2,6 @@
 # Enables Dual Monitor on amalthea
 
 MONITORS=$(xrandr -q | grep connected | awk '{print $1}' | tr [:space:] ' ')
-
 if [[ "${HOSTNAME}" != "amalthea" ]]; then
     echo "This Script is meant to be used on Amalthea."
     exit 0
@@ -22,4 +21,6 @@ cvt 1920 1080 50
 xrandr --newmode "1920x1080_50.00"  141.50  1920 2032 2232 2544  1080 1083 1088 1114 -hsync +vsync
 xrandr --addmode DVI-D-1 1920x1080_50.00
 xrandr --output DVI-D-1 --mode 1920x1080_50.00
-xrandr --output HDMI-1 --primary 
+#xrandr --output HDMI-1 --primary 
+#xrandr --output DVI-D-1 --right-of HDMI-1
+xrandr --output DVI-D-1 --mode 1920x1080_50.00 --pos 1920x0 --rotate normal --output HDMI-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal
