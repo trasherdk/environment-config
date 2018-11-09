@@ -75,6 +75,7 @@ numpy3
 qt-creator2
 vscode
 vim-qt
+alacritty
 
 # Desktop - Window Managers
 openbox
@@ -111,6 +112,7 @@ adobe-source-code-pro-font
 adobe-source-han-sans-fonts
 adobe-source-sans-pro-font
 adobe-source-serif-pro-font
+hack-font-ttf
 FontAwesome
 
 # Gtk themes
