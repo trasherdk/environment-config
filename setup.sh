@@ -76,19 +76,32 @@ for h in ${HOSTS[@]}; do
         fi
     fi
 
+    # Pasiphae Settings only
+    if [[ "${h}" == "pasiphae" ]]; then
+        if [ -w "/etc/udev/rules.d/" ]; then
+            echo "Adding Touchpad rules, when adding"
+            cat ${LOCATION}/config/udev/01-touchpad.rules > /etc/udev/rules.d/01-touchpad.rules
+            echo ""
+        fi
+
+        if [ -w "/etc/X11/xorg.conf.d/" ]; then
+            echo "Adding Touchpad configuration options to X11"
+            cat ${LOCATION}/config/X11/60-synaptics.conf > /etc/X11/xorg.conf.d/60-synaptics.conf
+            echo ""
+        fi
+    fi
+
+    # Amalthea Settings only
+    if [[ "${h}" == "amalthea" ]]; then
+        if [ -w "/etc/X11/xorg.conf" ]; then
+            if [ -z $(grep -o 'ACER' '/etc/X11/xorg.conf') ]; then
+                echo "Adding dual monitor support to amalthea Xorg.conf"
+                cat ${LOCATION}/config/X11/xorg.amalthea.conf > /etc/X11/xorg.conf
+                echo ""
+            fi
+        fi
+    fi
 done
-
-if [ -w "/etc/udev/rules.d/" ]; then
-    echo "Adding Touchpad rules, when adding"
-    cat ${LOCATION}/config/udev/01-touchpad.rules > /etc/udev/rules.d/01-touchpad.rules
-    echo ""
-fi
-
-if [ -w "/etc/X11/xorg.conf.d/" ]; then
-    echo "Adding Touchpad configuration options to X11"
-    cat ${LOCATION}/config/X11/60-synaptics.conf > /etc/X11/xorg.conf.d/60-synaptics.conf
-    echo ""
-fi
 
 if [ -w "/etc/sudoers.d/" ]; then
     echo "Adding pratt sudoers config"
