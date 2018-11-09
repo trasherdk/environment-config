@@ -102,9 +102,9 @@ for h in ${HOSTS[@]}; do
         fi
 
         if [ -w "/etc/kde/kdm/Xsetup" ]; then
-            if [ -z $(grep -o 'xrandr' '/etc/kde/kdm/Xsetup') ]; then
+            if [ -z "$(grep -o 'xrandr' '/etc/kde/kdm/Xsetup')" ]; then
                 echo "Adding dual monitor initialization scripts to kdm"
-                cat ${LOCATION}/bin/dual-monitors | egrep -v '^#' >> /etc/kde/kdm/Xsetup
+                cat ${LOCATION}/slackware/bin/dual-monitors | egrep -v '^#' >> /etc/kde/kdm/Xsetup
                 echo ""
             fi
         fi
